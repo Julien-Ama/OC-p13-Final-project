@@ -8,31 +8,34 @@
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8 text-center">
-                <h2 class="text-white mt-0">We've got what you need!</h2>
                 <hr class="divider divider-light" />
-                <p class="text-white-75 mb-4">Start Bootstrap has everything you need to get your new website up and running in no time! Choose one of our open source, free to download, and easy to use themes! No strings attached!</p>
-                <a class="btn btn-light btn-xl" href="{% url 'index' %}">Get Started!</a>
+                <h2 class="text-white mt-0">Votre Panier</h2>
+                <hr class="divider divider-light" />
+                <a class="btn btn-light btn-xl" href="{% url 'store:create-checkout-session' %}">Proceder au paiement</a>
+                <p class="text-white-75 mb-4">"Sélectionnez le nombre de vos produits ou supprimez-les, puis procédez au paiement".</p>
+                <a class="btn btn-light btn-xl" href="{% url 'store:delete-cart' %}">Supprimer le panier</a>
                 <form method="POST" action="{% url 'store:update-quantities' %}">
     {% csrf_token %}
     {{ forms.management_form }}
     {% for form in forms %}
     <div>
-        <h3>{{ form.instance.product.name }}</h3>
+        <hr class="divider divider-light" />
+        <h2 class="text-white mt-0">{{ form.instance.product.name }}</h2>
+        <hr class="divider divider-light" />
         <img src="{{ form.instance.product.thumbnail_url }}" alt="Image du produit" style="max-width: 250px;">
-        <p>{{ form.instance.product.description }}</p>
+        <p class="text-white-75 mb-4">{{ form.instance.product.description }}</p>
         {{ form.as_p }}
     </div>
     {% endfor %}
-    <button type="submit">Mettre à jour les quantités</button>
+    <button class="btn btn-light btn-xl"type="submit">Mettre à jour les quantités</button>
+</form>
+                {% csrf_token %}
+
+
 </form>
 
 
-<form action="{% url 'store:create-checkout-session' %}" method="POST">
-    {% csrf_token %}
-    <button type="submit">Proceder au paiement</button>
-</form>
 
-<a href="{% url 'store:delete-cart' %}">Supprimer le panier</a>
             </div>
         </div>
     </div>

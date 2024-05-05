@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Creative - Start Bootstrap Theme</title>
+        <title>Projet 13</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
         <!-- Bootstrap Icons-->
@@ -46,7 +46,7 @@
                         {% if user.cart and not user.cart.ordered %}
 
                         <p>
-                            <a href="{% url 'store:cart' %}">Voir le panier ({{ user.cart.orders.count}})</a>
+                            <a href="{% url 'store:cart' %}" class="black-text">Voir le panier ({{ user.cart.orders.count}})</a>
                         </p>
                         {% endif %}
                     </ul>
