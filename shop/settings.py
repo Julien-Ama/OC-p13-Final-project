@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 import environ
@@ -44,7 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'store',
     'accounts',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -61,7 +64,7 @@ ROOT_URLCONF = 'shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,7 +126,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -134,7 +137,24 @@ MEDIA_ROOT = BASE_DIR / "media"
 AUTH_USER_MODEL = "accounts.Shopper"
 STRIPE_API_KEY = env("STRIPE_API_KEY")
 
-STATICFILES_DIRS = [
-    BASE_DIR / "shop" / "static"
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR / "shop" / "static"
+# ]
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 LOGIN_URL = "/account/login/"
+
+# voir shop/url
+
+# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# # MEDIA_URL = "/media/"
+# # MEDIA_ROOT = BASE_DIR / "media"
+# AUTH_USER_MODEL = "accounts.Shopper"
+# STRIPE_API_KEY = env("STRIPE_API_KEY")
+#
+# # STATICFILES_DIRS = [
+# #     BASE_DIR / "shop" / "static"
+# # ]
+# STATIC_URL = '/staticfiles/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'), ]
