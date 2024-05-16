@@ -74,7 +74,11 @@ class Cart(models.Model):
 
 
     def __str__(self):
-        return self.user.username
+        if self.user:
+            return str(self.user.username)
+
+        else:
+            return "Cart (No user)"
 
     def delete(self, *args, **kwargs):
         for order in self.orders.all():

@@ -98,6 +98,8 @@ def create_checkout_session(request):
         checkout_data["customer_email"] = request.user.email
 
     session = stripe.checkout.Session.create(**checkout_data)
+    cart.orders.all().delete()
+    cart.delete()
 
     return redirect(session.url)
 
@@ -153,30 +155,39 @@ def stripe_webhook(request):
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
     endpoint_secret = "whsec_1b32becf79f2bc60e1a4c2f6ae0bc317cfb49545f10c4835b1a0a90ba9303183"
     event = None
+    print("111111111111111111")
 
     try:
         event = stripe.Webhook.construct_event(
             payload, sig_header, endpoint_secret
         )
+        print("2222222222222222222")
     except ValueError as e:
         # Invalid payload
+        print("3333333333333333333")
         return HttpResponse(status=400)
     except stripe.error.SignatureVerificationError as e:
         # Invalid signature
+        print("444444444444444444444")
         return HttpResponse(status=400)
 
     if event['type'] == 'checkout.session.completed':
         data = event['data']['object']
         pprint(data)
+        print("5555555555555555555555555")
         try:
             user = get_object_or_404(Shopper, email=data['customer_details']['email'])
         except KeyError:
+            print("666666666666666666666666666")
             return HttpResponse("Invalid user email", status=404)
 
         complete_order(data=data, user=user)
+        print("7777777777777777777")
         save_shipping_address(data=data, user=user)
+        print("88888888888888888888888")
 
         return HttpResponse(status=200)
+    print("9999999999999999999")
 
     # Passed signature verification
     return HttpResponse(status=200)
