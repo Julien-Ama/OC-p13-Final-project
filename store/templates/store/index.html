@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block content %} {% load static %}
 
 {% for product in products %}
 {% endfor %}
@@ -37,8 +37,8 @@
     <div class="container-fluid p-0">
         <div class="row g-0">
             <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="/boutique/product/basket_ebene/" title="{{ product.name }}">
-                    <img class="img-fluid" src="static/assets/img/portfolio/thumbnails/basket_ébèneF.png" alt="{{ product.name }}" />
+                <a class="portfolio-box" href="{% url 'store:product' slug='basket_ebene' %}" title="{{ product.name }}">
+                    <img class="img-fluid" src="{% static '/assets/img/portfolio/thumbnails/basket_ébèneF.png' %}" alt="{{ product.name }}" />
                     <div class="portfolio-box-caption">
                         <div class="project-category text-white-50">49€</div>
                         <div class="project-name">Basket ébène</div>
@@ -46,7 +46,7 @@
                 </a>
             </div>
             <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="/boutique/product/basket_feu/" title="{{ product.name }}">
+                <a class="portfolio-box" href="{% url 'store:product' slug='basket_feu' %}" title="{{ product.name }}">
                     <img class="img-fluid" src="static/assets/img/portfolio/thumbnails/basket_feu.png" alt="{{ product.name }}" />
                     <div class="portfolio-box-caption">
                         <div class="project-category text-white-50">59€</div>
@@ -55,7 +55,7 @@
                 </a>
             </div>
             <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="/boutique/product/basket_blanc/" title="{{ product.name }}">
+                <a class="portfolio-box" href="{% url 'store:product' slug='basket_blanc' %}" title="{{ product.name }}">
                     <img class="img-fluid" src="static/assets/img/portfolio/thumbnails/basket_blancheF.png" alt="{{ product.name }}" />
                     <div class="portfolio-box-caption">
                         <div class="project-category text-white-50">39€</div>
@@ -64,7 +64,7 @@
                 </a>
             </div>
             <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="/boutique/product/basket_disco/" title="{{ product.name }}">
+                <a class="portfolio-box" href="{% url 'store:product' slug='basket_disco' %}" title="{{ product.name }}">
                     <img class="img-fluid" src="static/assets/img/portfolio/thumbnails/basket_discoF.png" alt="{{ product.name }}" />
                     <div class="portfolio-box-caption">
                         <div class="project-category text-white-50">69€</div>
@@ -73,7 +73,7 @@
                 </a>
             </div>
             <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="/boutique/product/basket_fille/" title="{{ product.name }}">
+                <a class="portfolio-box" href="{% url 'store:product' slug='basket_fille' %}" title="{{ product.name }}">
                     <img class="img-fluid" src="static/assets/img/portfolio/thumbnails/basket_filleF.png" alt="{{ product.name }}" />
                     <div class="portfolio-box-caption">
                         <div class="project-category text-white-50">49€</div>
@@ -82,7 +82,7 @@
                 </a>
             </div>
             <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="/boutique/product/basket_gar/" title="{{ product.name }}">
+                <a class="portfolio-box" href="{% url 'store:product' slug='basket_gar' %}" title="{{ product.name }}">
                     <img class="img-fluid" src="static/assets/img/portfolio/thumbnails/basket_garçonF.png" alt="{{ product.name }}" />
                     <div class="portfolio-box-caption">
                         <div class="project-category text-white-50">39€</div>

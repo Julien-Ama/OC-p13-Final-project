@@ -141,8 +141,9 @@ STRIPE_API_KEY = env("STRIPE_API_KEY")
 # STATICFILES_DIRS = [
 #     BASE_DIR / "shop" / "static"
 # ]
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 LOGIN_URL = "/account/login/"
 
 # voir shop/url

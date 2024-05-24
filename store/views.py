@@ -149,6 +149,45 @@ def delete_cart(request):
 #
 #   return HttpResponse(status=200)
 
+# @csrf_exempt
+# def stripe_webhook(request):
+#     payload = request.body
+#     sig_header = request.META.get('HTTP_STRIPE_SIGNATURE', '')
+#
+#     endpoint_secret = "whsec_1b32becf79f2bc60e1a4c2f6ae0bc317cfb49545f10c4835b1a0a90ba9303183"
+#     event = None
+#     print("Payload received:", payload)
+#     print("Signature header:", sig_header)
+#
+#     try:
+#         event = stripe.Webhook.construct_event(
+#             payload, sig_header, endpoint_secret
+#         )
+#         print("Event constructed:", event)
+#     except ValueError as e:
+#         # Invalid payload
+#         print("Invalid payload:", e)
+#         return HttpResponse(status=400)
+#     except stripe.error.SignatureVerificationError as e:
+#         # Invalid signature
+#         print("Invalid signature:", e)
+#         return HttpResponse(status=400)
+#
+#     if event['type'] == 'checkout.session.completed':
+#         data = event['data']['object']
+#         pprint(data)
+#         try:
+#             user = get_object_or_404(Shopper, email=data['customer_details']['email'])
+#         except KeyError:
+#             return HttpResponse("Invalid user email", status=404)
+#
+#         complete_order(data=data, user=user)
+#         save_shipping_address(data=data, user=user)
+#
+#         return HttpResponse(status=200)
+#
+#     return HttpResponse(status=200)
+
 @csrf_exempt
 def stripe_webhook(request):
     payload = request.body
@@ -197,10 +236,23 @@ def complete_order(data, user):
     pprint(data)
 
     user.stripe_id = data['customer']
-    user.cart.delete()
-    user.save()
-    return HttpResponse(status=200)
+    if hasattr(user, 'cart') and user.cart:
+        user.cart.delete()
+        user.save()
+        return HttpResponse(status=200)
+    else:
+        # Handle the case where there is no cart (log it or raise a custom exception)
+        print("No cart exists for this user.")
 
+# def complete_order(data, user):
+#     # Check if the user has a cart before trying to delete it
+#     if hasattr(user, 'cart') and user.cart:
+#         user.cart.delete()
+#     else:
+#         # Handle the case where there is no cart (log it or raise a custom exception)
+#         print("No cart exists for this user.")
+#         # Alternatively, you could raise a custom exception or handle it as needed
+#         # raise ValueError("No cart exists for this user.")
 
 def save_shipping_address(data, user):
     """
@@ -217,8 +269,8 @@ def save_shipping_address(data, user):
   },
     """
     try:
-        address = data["shipping"]["address"]
-        name = data["shipping"]["name"]
+        address = data["shipping_details"]["address"]
+        name = data["shipping_details"]["name"]
         city = address["city"]
         country = address["country"]
         line1 = address["line1"]
