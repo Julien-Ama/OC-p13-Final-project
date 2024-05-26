@@ -33,8 +33,8 @@ SECRET_KEY = 'django-insecure-iu@65u0-tb6d5jr#^36m)$_ko_ik$96=4+c8%-a&%cl5wteb38
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1"]
-
+# ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["p-13.herokuapp.com"]
 
 # Application definition
 
@@ -87,18 +87,18 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=os.environ.get('DATABASE_URL')
+#     )
+# }
 
 # DATABASES = {
 #  'default': {
