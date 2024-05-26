@@ -1,1 +1,1 @@
-web: PYTHONPATH=./p13 gunicorn shop.wsgi --log-file -
+web: gunicorn shop.wsgi --log-file -
