@@ -10976,7 +10976,7 @@ header.masthead3 h1, header.masthead3 .h1 {
     padding-bottom: 0;
   }
   header.masthead p {
-    font-size: 1.15rem;
+    font-size: 0.80rem;
   }
   header.masthead h1, header.masthead .h1 {
     font-size: 3rem;
@@ -11036,4 +11036,11 @@ header.masthead3 h1, header.masthead3 .h1 {
 
 .black-text {
     color: black;
+}
+
+.address-card {
+    font-size: 0.8em !important; /* Taille réduite de la police */
+    padding: 1px !important; /* Espacement réduit */
+    border: 1px solid #ccc !important; /* Bordure plus fine */
+    margin-bottom: 10px !important; margin-bottom: 10px; /* Espacement entre les adresses */
 }
