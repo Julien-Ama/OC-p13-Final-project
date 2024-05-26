@@ -1,1 +1,1 @@
-Web : Gunicorn P13.WSGI
+Web : Gunicorn shop.WSGI
