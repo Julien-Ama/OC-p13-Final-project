@@ -77,12 +77,22 @@ def profile(request):
     return render(request, 'accounts/profile.html', context={"form": form,
                                                                           "addresses": addresses})
 
+# @login_required
+# def set_default_shipping_address(request, pk):
+#     address: ShippingAddress = get_object_or_404(ShippingAddress, pk=pk)
+#     address.set_default()
+#     return redirect('accounts:profile')
 @login_required
 def set_default_shipping_address(request, pk):
-    address: ShippingAddress = get_object_or_404(ShippingAddress, pk=pk)
-    address.set_default()
-    return redirect('accounts:profile')
+    address = get_object_or_404(ShippingAddress, pk=pk)
 
+    try:
+        address.set_default()
+        messages.success(request, "Default shipping address set successfully.")
+    except ValueError as e:
+        messages.error(request, str(e))
+
+    return redirect('accounts:profile')
 
 @login_required
 def delete_address(request, pk):
