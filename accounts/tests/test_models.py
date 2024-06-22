@@ -3,6 +3,7 @@ from django.test import TestCase
 from accounts.models import Shopper
 from store.models import Product
 
+
 class UserTest(TestCase):
     def setUp(self):
         Product.objects.create(

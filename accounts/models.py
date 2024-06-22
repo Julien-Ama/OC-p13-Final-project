@@ -29,6 +29,7 @@ stripe.api_key = settings.STRIPE_API_KEY
 #
 #         return self.create_user(email=email, password=password, **kwargs)
 
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **kwargs):
         if not email:
@@ -53,6 +54,7 @@ class CustomUserManager(BaseUserManager):
         kwargs.setdefault('is_active', True)
 
         return self.create_user(email=email, password=password, **kwargs)
+
 
 class Shopper(AbstractUser):
     username = None
@@ -123,6 +125,7 @@ ADDRESS_FORMAT = """
 #                       "address": self.as_dict()},
 #             address=self.as_dict()
 #         )
+
 
 class ShippingAddress(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="addresses")

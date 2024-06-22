@@ -1,6 +1,7 @@
 from django.urls import path
 
-from store.views import product_detail, add_to_cart, cart, delete_cart, create_checkout_session, checkout_success, stripe_webhook, update_quantities
+from store.views import (product_detail, add_to_cart, cart, delete_cart, create_checkout_session, checkout_success,
+                         stripe_webhook, update_quantities)
 
 app_name = "store"
 

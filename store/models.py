@@ -12,9 +12,10 @@ Product
 - Nom
 - Prix
 - La quantité en stock
-- Description 
+- Description
 - Image
 """
+
 
 class Product(models.Model):
     name = models.CharField(max_length=128)
@@ -36,9 +37,9 @@ class Product(models.Model):
         self.slug = self.slug or slugify(self.name)
         super().save(*args, **kwargs)
 
-
     def thumbnail_url(self):
         return self.thumbnail.url if self.thumbnail else static("img/default.png")
+
 
 """
 Article (Order)
@@ -47,6 +48,7 @@ Article (Order)
 - Quantité
 - Commandé ou non
 """
+
 
 class Order(models.Model):
     user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -58,6 +60,7 @@ class Order(models.Model):
     def __str__(self):
         return f"{self.product.name} ({self.quantity})"
 
+
 """
 Panier (Cart)
 - Utilisateur
@@ -66,12 +69,12 @@ Panier (Cart)
 - Date de la commande
 """
 
+
 class Cart(models.Model):
-    user = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE) #ForeignKey(unique=True)
+    user = models.OneToOneField(AUTH_USER_MODEL, on_delete=models.CASCADE)  # ForeignKey(unique=True)
     orders = models.ManyToManyField(Order)
     ordered = models.BooleanField(default=False)
     ordered_date = models.DateTimeField(blank=True, null=True)
-
 
     def __str__(self):
         if self.user:

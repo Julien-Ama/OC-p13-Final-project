@@ -1,18 +1,17 @@
 from pprint import pprint
-import json
 import stripe
 from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from django.utils import timezone
+# from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from accounts.models import Shopper, ShippingAddress
 from shop import settings
 from store.forms import OrderForm
-from store.models import Product, Cart, Order
+from store.models import Product, Order
 
 stripe.api_key = settings.STRIPE_API_KEY
 
@@ -34,6 +33,7 @@ def add_to_cart(request, slug):
 
     return redirect(reverse("store:product", kwargs={"slug": slug}))
 
+
 @login_required
 def cart(request):
     orders = Order.objects.filter(user=request.user)
@@ -41,7 +41,6 @@ def cart(request):
         return redirect("index")
     OrderFormSet = modelformset_factory(Order, form=OrderForm, extra=0)
     formset = OrderFormSet(queryset=orders)
-
 
     return render(request, 'store/cart.html', context={"forms": formset})
 
@@ -75,7 +74,6 @@ def update_quantities(request):
 #                 form.instance.delete()
 #
 #     return redirect('cart')
-
 
 
 def create_checkout_session(request):
@@ -254,6 +252,7 @@ def complete_order(data, user):
 #         print("No cart exists for this user.")
 #         # Alternatively, you could raise a custom exception or handle it as needed
 #         # raise ValueError("No cart exists for this user.")
+
 
 def save_shipping_address(data, user):
     """

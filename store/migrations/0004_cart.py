@@ -20,7 +20,8 @@ class Migration(migrations.Migration):
                 ('ordered', models.BooleanField(default=False)),
                 ('ordered_date', models.DateTimeField(blank=True, null=True)),
                 ('orders', models.ManyToManyField(to='store.order')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(
+                    on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

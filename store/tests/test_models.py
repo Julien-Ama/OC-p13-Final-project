@@ -14,11 +14,13 @@ class ProductTest(TestCase):
             stock=4,
             description="Jolie paire de basket sombre non salissante",
         )
+
     def test_product_slug_is_automatically_generated(self):
         self.assertEqual(self.product.slug, "basket-ebene")
 
     def test_product_absolute_url(self):
         self.assertEqual(self.product.get_absolute_url(), reverse("store:product", kwargs={"slug": self.product.slug}))
+
 
 class CartTest(TestCase):
     def setUp(self):

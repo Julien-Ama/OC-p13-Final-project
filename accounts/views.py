@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model, login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from django.forms import model_to_dict
 from django.shortcuts import render, redirect, get_object_or_404
 
 from accounts.forms import UserForm
@@ -23,17 +22,19 @@ def signup(request):
     return render(request, 'accounts/signup.html')
 """""""""
 
+
 def signup(request):
     if request.method == "POST":
         # Traitement du formulaire
         email = request.POST.get("username")
         password = request.POST.get("password")
         user = User.objects.create_user(email=email,
-                                 password=password)
+                                        password=password)
         login(request, user)
         return redirect('index')
 
     return render(request, 'accounts/signup.html')
+
 
 def login_user(request):
     if request.method == "POST":
@@ -47,7 +48,6 @@ def login_user(request):
             return redirect('index')
 
     return render(request, 'accounts/login.html')
-
 
 
 def logout_user(request):
@@ -74,14 +74,17 @@ def profile(request):
     form = UserForm(instance=request.user)
     addresses = request.user.addresses.all()
 
-    return render(request, 'accounts/profile.html', context={"form": form,
-                                                                          "addresses": addresses})
+    return render(request, 'accounts/profile.html', context={
+        "form": form,
+        "addresses": addresses})
 
 # @login_required
 # def set_default_shipping_address(request, pk):
 #     address: ShippingAddress = get_object_or_404(ShippingAddress, pk=pk)
 #     address.set_default()
 #     return redirect('accounts:profile')
+
+
 @login_required
 def set_default_shipping_address(request, pk):
     address = get_object_or_404(ShippingAddress, pk=pk)
@@ -93,6 +96,7 @@ def set_default_shipping_address(request, pk):
         messages.error(request, str(e))
 
     return redirect('accounts:profile')
+
 
 @login_required
 def delete_address(request, pk):

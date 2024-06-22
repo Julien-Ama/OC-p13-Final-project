@@ -10,11 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
-from pathlib import Path
+# from pathlib import Path
 
 import environ
-import dj_database_url
+# import dj_database_url
 from pathlib import Path
+import sentry_sdk
+
 
 env = environ.Env()
 
@@ -110,7 +112,7 @@ DATABASES = {
 #  'NAME': 'd3m8vass43mkdv',
 #  'USER': 'u5u6elo97gf00r',
 #  'PASSWORD': 'p85ee0ae41c41ee148ea50d441f79d396f3e90fd0fcb234e5e981f9e606daf2cf',
-#  'HOST': 'ce0lkuo944ch99.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com', # ou l'adresse IP de votre serveur PostgreSQL
+#  'HOST': 'ce0lkuo944ch99.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com',
 #  'PORT': '5432',
 #  }
 # }
@@ -133,6 +135,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+sentry_sdk.init(
+    dsn="https://1da54eded89bdd3ac23efd19a8fddeb3@o4505970402918400.ingest.us.sentry.io/4507447634165760",
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    traces_sample_rate=1.0,
+    # Set profiles_sample_rate to 1.0 to profile 100%
+    # of sampled transactions.
+    # We recommend adjusting this value in production.
+    profiles_sample_rate=1.0,
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -145,16 +157,10 @@ USE_I18N = True
 
 # USE_L10N = True
 USE_TZ = True
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"

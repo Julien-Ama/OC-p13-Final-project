@@ -32,6 +32,7 @@ class StoreTest(TestCase):
         self.assertEqual(resp.status_code, 302)
         self.assertRedirects(resp, f"{reverse('accounts:login')}?next={reverse('store:cart')}", status_code=302)
 
+
 class storeLoggedInTest(TestCase):
     def setUp(self):
         self.user = Shopper.objects.create_user(
@@ -44,7 +45,8 @@ class storeLoggedInTest(TestCase):
     def test_valid_login(self):
         data = {'email': 'amadeus@gmail.com', 'password': '123456789'}
         resp = self.client.post(reverse('accounts:login'), data=data)
-        self.assertEqual(resp.status_code, 200) #302
+        self.assertEqual(resp.status_code, 200)  # 302
+
         # resp = self.client.get(reverse('index'))
         # self.assertIn("Profil", str(resp.content))
 
@@ -69,4 +71,3 @@ class storeLoggedInTest(TestCase):
         self.assertEqual(resp.status_code, 302)
         amadeus = Shopper.objects.get(email="amadeus@gmail.com")
         self.assertEqual(amadeus.last_name, "Salieri")
-
