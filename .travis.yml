@@ -1,6 +1,6 @@
 language: python
 python:
-  - "3.12.3"
+  - "3.12"
 
 # Installer les dépendances
 install:
