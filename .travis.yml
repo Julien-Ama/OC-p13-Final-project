@@ -1,29 +1,18 @@
+dist: xenial  # Utilisez Ubuntu 16.04
 language: python
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
+  - curl https://pyenv.run | bash
+  - export PATH="$HOME/.pyenv/bin:$PATH"
+  - eval "$(pyenv init --path)"
+  - eval "$(pyenv init -)"
+  - eval "$(pyenv virtualenv-init -)"
+  - pyenv install 3.10.0
+  - pyenv global 3.10.0
 python:
   - "3.10"
-
-# Installer les dépendances
 install:
   - pip install -r requirements.txt
-
-# Configuration de la base de données
-services:
-  - postgresql
-
-# Avant le script
-before_script:
-  - psql -c 'create database mydb;' -U postgres
-  - python manage.py migrate
-
-# Script pour exécuter les tests
 script:
   - python manage.py test
-
-# Déploiement sur Heroku
-deploy:
-  provider: heroku
-  api_key:
-    secure: f809f107-aaa9-4d98-9f37-faa47f997d00
-  app: p-13
-  on:
-    branch: main
