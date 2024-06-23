@@ -1,19 +1,20 @@
-language: python
-python:
-  - '3.8'
-
-before_script:
-  - pip install -r requirements.txt
-
-branches:
-  only:
-    - main
-
-env:
-  - STRIPE_API_KEY=sk_test_51P0mKrDmaVoyuNpoBVG6ai8F3KqYOj4jPJkqE2SxdGAmjpDb0USqfd8GEL03kQWCkJQSzXEtkxEtj1FS0utEnskM00TbERP8EG
-
+dist: focal  # Ensure Ubuntu Focal (20.04 LTS) for more recent packages
 services:
   - postgresql
 
+addons:
+  apt:
+    packages:
+      - sqlite3  # Install SQLite3
+
+before_script:
+  - sqlite3 --version  # Print SQLite version to confirm
+
+python:
+  - "3.8"
+
+install:
+  - pip install -r requirements.txt
+
 script:
-  - python3 manage.py test
+  - python manage.py test
