@@ -112,7 +112,11 @@ def checkout_success(request):
 def delete_cart(request):
     # cart = request.user.cart
     # if cart:
-    if cart := request.user.cart:  # walrus(morse)
+    # if cart := request.user.cart:  # walrus(morse)
+    #     cart.orders.all().delete()
+    #     cart.delete()
+    cart = request.user.cart
+    if cart is not None:
         cart.orders.all().delete()
         cart.delete()
 
